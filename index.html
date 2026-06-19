@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>offalwaffle.dev</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink:    #F2C5B8;
+    --khaki:   #B5A96A;
+    --sky:     #5BAFD6;
+    --mint:    #A8D5CE;
+    --black:   #111111;
+    --off:     #F6F4F0;
+    --text:    #1a1a1a;
+    --muted:   #666;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    background: var(--off);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    mix-blend-mode: multiply;
+  }
+
+  nav .logo {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  nav ul a {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--black);
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  nav ul a:hover { opacity: 1; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--black);
+  }
+
+  .blob-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .blob-container svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-text {
+    position: relative;
+    z-index: 2;
+    padding: 3rem 3rem 3rem 5vw;
+    max-width: 900px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-name {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #fff;
+    line-height: 0.95;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-name span {
+    display: block;
+    font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+    letter-spacing: 0.12em;
+    opacity: 0.55;
+    margin-top: 0.4rem;
+  }
+
+  .hero-bio {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.75);
+    max-width: 480px;
+    margin-top: 2rem;
+    font-weight: 300;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.6rem 1.4rem;
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+    border-radius: 100px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .pill:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.7);
+  }
+
+  .pill.solid {
+    background: var(--sky);
+    border-color: var(--sky);
+    color: #fff;
+  }
+
+  .pill.solid:hover { opacity: 0.85; }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 7rem 5vw;
+  }
+
+  .section-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 3rem;
+    background: currentColor;
+    opacity: 0.4;
+  }
+
+  /* ── PROJECTS GRID ── */
+  .projects {
+    background: var(--off);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5px;
+    background: #ccc;
+    border: 1.5px solid #ccc;
+  }
+
+  .project-card {
+    background: var(--off);
+    padding: 2.2rem 2rem;
+    transition: background 0.2s;
+  }
+
+  .project-card:hover { background: #fff; }
+
+  .project-card .tag {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+  }
+
+  .tag.music    { background: var(--pink); color: #5a2a1a; }
+  .tag.eng      { background: var(--sky); color: #0a2e40; }
+  .tag.both     { background: var(--mint); color: #1a3a36; }
+
+  .project-card h3 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1.25rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    color: var(--black);
+  }
+
+  .project-card p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  .project-card .project-link {
+    display: inline-block;
+    margin-top: 1.2rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--sky);
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+  }
+
+  /* ── MUSIC STRIP ── */
+  .music-strip {
+    background: var(--black);
+    padding: 7rem 5vw;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .music-strip .blob-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .music-strip .section-label { color: rgba(255,255,255,0.4); }
+
+  .music-strip h2 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 4rem);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  .music-strip p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.6);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 3rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .stat-num {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 2.2rem;
+    letter-spacing: 0.04em;
+    color: var(--sky);
+  }
+
+  .stat-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ── CONTACT ── */
+  .contact {
+    background: var(--off);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-blob-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .contact h2 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--black);
+    margin-bottom: 1.2rem;
+    max-width: 500px;
+  }
+
+  .contact p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.9rem;
+    transition: color 0.2s;
+    width: fit-content;
+  }
+
+  .contact-link:hover { color: var(--sky); }
+
+  .contact-link .link-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    width: 5rem;
+    color: var(--muted);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    padding: 2rem 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  footer span {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    nav { padding: 1.2rem 1.5rem; }
+    nav ul { gap: 1.5rem; }
+    .hero-text { padding: 2rem 1.5rem; }
+    section { padding: 5rem 1.5rem; }
+    .music-strip { padding: 5rem 1.5rem; }
+    .contact { padding: 5rem 1.5rem; }
+    footer { padding: 1.5rem; }
+    .stats-row { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">offalwaffle.dev</div>
+  <ul>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#music">Music</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="blob-container">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <!-- pink: amoeba, top-left, tentacles reach right and down -->
+      <path fill="#F2C5B8" d="M-80,-60 C-20,-155 95,-210 205,-195 C295,-182 355,-128 408,-58 C448,2 428,72 468,118 C512,170 575,168 568,248 C560,330 488,388 398,418 C315,445 215,435 138,398 C58,360 -2,295 -38,220 C-72,150 -48,108 -98,55 C-140,10 -128,18 -80,-60 Z"/>
+      <!-- khaki: amoeba, centre-top, pinched waist, lobe pokes upper-right -->
+      <path fill="#B5A96A" d="M228,-195 C278,-258 375,-275 462,-242 C535,-214 572,-152 598,-78 C620,-15 608,52 638,108 C668,165 725,185 712,258 C698,328 632,368 552,378 C475,388 392,358 335,298 C278,240 262,158 252,82 C242,15 192,-142 228,-195 Z"/>
+      <!-- sky: amoeba, right side, huge, irregular lobes top and bottom -->
+      <path fill="#5BAFD6" d="M872,-88 C928,-178 1058,-225 1195,-212 C1315,-200 1418,-138 1478,-42 C1528,42 1542,148 1555,248 C1568,345 1578,448 1548,542 C1518,635 1455,712 1365,755 C1278,796 1172,788 1075,758 C985,730 908,675 852,598 C795,522 768,428 748,332 C728,238 718,148 748,68 C768,12 828,-15 872,-88 Z"/>
+      <!-- mint: amoeba, bottom-left, pseudopod reaches up-right -->
+      <path fill="#A8D5CE" d="M-195,615 C-162,498 -88,422 42,392 C148,368 252,388 335,448 C405,498 428,578 458,648 C488,718 528,775 498,838 C468,898 388,928 285,935 C185,942 72,918 -18,862 C-105,808 -148,732 -178,658 C-202,595 -215,705 -195,615 Z"/>
+    </svg>
+  </div>
+  <div class="hero-text">
+    <p class="hero-eyebrow">Engineer &amp; Artist — London</p>
+    <h1 class="hero-name">
+      Lo Clerc
+      <span>Little People</span>
+    </h1>
+    <p class="hero-bio">
+      I build audio software and make music under the name Little People. Most of my work lives somewhere in the overlap between code and sound — expressive instruments, real-time DSP, machine learning for audio, and the infrastructure that ties it all together.
+    </p>
+    <div class="hero-links">
+      <a href="#projects" class="pill solid">See my work</a>
+      <a href="#contact" class="pill">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <p class="section-label">Selected work</p>
+
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <span class="tag eng">Engineering</span>
+      <h3>Equator 2</h3>
+      <p>Flagship synthesiser for the ROLI Seaboard. Deep polyphonic expression (MPE) with a multi-timbral architecture, built in C++/JUCE.</p>
+      <a href="#" class="project-link">roli.com ↗</a>
+    </div>
+
+    <div class="project-card">
+      <span class="tag eng">Engineering</span>
+      <h3>Airwave Player</h3>
+      <p>Cross-platform sound player for iOS and desktop. Real-time audio streaming, MDM-managed kiosk deployments, and AUv3 plugin support.</p>
+    </div>
+
+    <div class="project-card">
+      <span class="tag both">Audio ML</span>
+      <h3>Patch Matcher</h3>
+      <p>Synplant-style genetic algorithm applied to physical modelling synthesis. Perceptual loss, CMA-ES evolutionary search, differentiable polish.</p>
+    </div>
+
+    <div class="project-card">
+      <span class="tag music">Music</span>
+      <h3>Mickey Mouse Operation</h3>
+      <p>Debut album as Little People (2006). Re-release and 20th anniversary edition in progress — limited-edition figure, coloured vinyl, fold-out insert.</p>
+      <a href="https://open.spotify.com/artist/littlepeople" class="project-link">Spotify ↗</a>
+    </div>
+
+    <div class="project-card">
+      <span class="tag eng">Engineering</span>
+      <h3>Real-time Audio Engine</h3>
+      <p>A modular benchmark for C++ optimisation — memory layout, SIMD, lock-free concurrency, and latency spike avoidance. An evolving living reference.</p>
+      <a href="https://github.com" class="project-link">GitHub ↗</a>
+    </div>
+
+    <div class="project-card">
+      <span class="tag both">Audio ML</span>
+      <h3>CLAP Preset Classifier</h3>
+      <p>Contrastive audio-text synth preset classification using DawDreamer for headless rendering, trained on a custom tagged dataset.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- MUSIC STRIP -->
+<section class="music-strip" id="music">
+  <svg class="blob-svg" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#5BAFD6" fill-opacity="0.18" d="M978,-148 C1038,-228 1165,-262 1298,-235 C1412,-212 1502,-142 1538,-42 C1568,48 1558,158 1568,258 C1578,355 1608,455 1568,535 C1528,612 1428,648 1308,638 C1195,628 1082,572 998,492 C915,415 878,312 868,208 C858,112 878,28 938,-42 C958,-72 955,-88 978,-148 Z"/>
+    <path fill="#F2C5B8" fill-opacity="0.28" d="M-162,242 C-118,128 -18,58 118,38 C235,20 355,62 432,152 C498,232 512,342 488,445 C465,538 402,612 308,648 C218,682 108,668 22,612 C-62,558 -118,468 -148,375 C-175,288 -195,335 -162,242 Z"/>
+  </svg>
+  <p class="section-label">Music</p>
+  <h2>Little People</h2>
+  <p>
+    Electronic and cinematic music made in a shed in London. Twenty years of releases, soundtracks, and sync placements — distributed through Virgin Music.
+  </p>
+  <div class="hero-links">
+    <a href="https://open.spotify.com" class="pill solid">Spotify</a>
+    <a href="https://littlepeoplemusic.com" class="pill">littlepeoplemusic.com ↗</a>
+  </div>
+  <div class="stats-row">
+    <div class="stat">
+      <span class="stat-num">200k+</span>
+      <span class="stat-label">Monthly listeners</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">20</span>
+      <span class="stat-label">Years releasing</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">25M+</span>
+      <span class="stat-label">Streams on Moon</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#B5A96A" fill-opacity="0.18" d="M1118,-108 C1185,-178 1312,-202 1428,-158 C1528,-118 1598,-32 1608,72 C1618,168 1578,268 1528,352 C1478,435 1408,502 1318,528 C1228,554 1118,528 1038,462 C958,398 912,298 918,198 C924,105 958,28 1025,-32 C1065,-68 1062,-48 1118,-108 Z"/>
+    <path fill="#A8D5CE" fill-opacity="0.28" d="M1008,448 C1068,365 1185,332 1295,358 C1392,382 1468,455 1498,548 C1525,632 1502,728 1422,775 C1345,820 1235,808 1148,762 C1062,718 1005,632 992,538 C982,462 958,518 1008,448 Z"/>
+  </svg>
+  <p class="section-label">Contact</p>
+  <h2>Let's talk</h2>
+  <p>
+    Open to senior engineering roles in audio and music tech, sync licensing conversations, and anything in between.
+  </p>
+  <div class="contact-links">
+    <a class="contact-link" href="mailto:hello@offalwaffle.dev">
+      <span class="link-label">Email</span>
+      hello@offalwaffle.dev
+    </a>
+    <a class="contact-link" href="https://linkedin.com/in/laurentclerc" target="_blank">
+      <span class="link-label">LinkedIn</span>
+      linkedin.com/in/laurentclerc
+    </a>
+    <a class="contact-link" href="https://github.com/weareroli" target="_blank">
+      <span class="link-label">GitHub</span>
+      github.com
+    </a>
+    <a class="contact-link" href="https://open.spotify.com" target="_blank">
+      <span class="link-label">Spotify</span>
+      Little People
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Lo Clerc</span>
+  <span>offalwaffle.dev</span>
+</footer>
+
+</body>
+</html>
