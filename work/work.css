@@ -1,0 +1,272 @@
+/* ── Shared styles for project detail pages ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --pink:    #F2C5B8;
+  --khaki:   #B5A96A;
+  --sky:     #5BAFD6;
+  --mint:    #A8D5CE;
+  --black:   #111111;
+  --off:     #F6F4F0;
+  --text:    #1a1a1a;
+  --muted:   #666;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  background: var(--off);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  mix-blend-mode: multiply;
+}
+
+nav .logo {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+}
+
+nav ul a {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--black);
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+nav ul a:hover { opacity: 1; }
+
+/* ── PROJECT HERO ── */
+.project-hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: var(--black);
+  padding: 8rem 5vw 4rem;
+}
+
+.project-hero .blob-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.project-hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+
+.back-link {
+  display: inline-block;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 2rem;
+  transition: color 0.2s;
+}
+
+.back-link:hover { color: #fff; }
+
+.project-hero .tag {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 100px;
+  margin-bottom: 1.2rem;
+}
+
+.tag.music { background: var(--pink); color: #5a2a1a; }
+.tag.eng   { background: var(--sky); color: #0a2e40; }
+.tag.both  { background: var(--mint); color: #1a3a36; }
+
+.project-hero h1 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1;
+}
+
+/* ── PROJECT BODY ── */
+.project-body {
+  padding: 5rem 5vw 6rem;
+  max-width: 760px;
+}
+
+.project-body .lead {
+  font-size: 1.3rem;
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.project-body h2 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 0.68rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 3rem 0 1.2rem;
+}
+
+.project-body p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+}
+
+.project-meta {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.project-meta li {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+  padding: 0.4rem 0.9rem;
+  border: 1px solid #d8d4cc;
+  border-radius: 100px;
+}
+
+/* ── PILLS / LINKS ── */
+.project-links {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.pill {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.6rem 1.4rem;
+  border: 1px solid rgba(0,0,0,0.25);
+  color: var(--black);
+  border-radius: 100px;
+  transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+}
+
+.pill:hover {
+  background: rgba(0,0,0,0.05);
+  border-color: rgba(0,0,0,0.5);
+}
+
+.pill.solid {
+  background: var(--sky);
+  border-color: var(--sky);
+  color: #fff;
+}
+
+.pill.solid:hover { opacity: 0.85; }
+
+/* ── PAGER (prev / next) ── */
+.project-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid #d8d4cc;
+  padding: 2.5rem 5vw;
+  max-width: 100%;
+}
+
+.project-pager a {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+  opacity: 0.7;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.project-pager a:hover { opacity: 1; color: var(--sky); }
+.project-pager .spacer { flex: 1; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--black);
+  padding: 2rem 5vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+footer span, footer a {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  text-decoration: none;
+}
+
+footer a:hover { color: rgba(255,255,255,0.6); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  nav { padding: 1.2rem 1.5rem; }
+  nav ul { gap: 1.5rem; }
+  .project-hero { padding: 7rem 1.5rem 3rem; }
+  .project-body { padding: 3.5rem 1.5rem 4rem; }
+  .project-pager { padding: 2rem 1.5rem; }
+  footer { padding: 1.5rem; }
+}

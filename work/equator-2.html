@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equator 2 — offalwaffle.dev</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="work.css">
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="../index.html">offalwaffle.dev</a>
+  <ul>
+    <li><a href="../index.html#projects">Work</a></li>
+    <li><a href="../index.html#music">Music</a></li>
+    <li><a href="../index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="project-hero">
+  <svg class="blob-svg" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#5BAFD6" fill-opacity="0.4" d="M978,-148 C1038,-228 1165,-262 1298,-235 C1412,-212 1502,-142 1538,-42 C1568,48 1558,158 1568,258 C1578,355 1608,455 1568,535 C1528,612 1428,648 1308,638 C1195,628 1082,572 998,492 C915,415 878,312 868,208 C858,112 878,28 938,-42 C958,-72 955,-88 978,-148 Z"/>
+    <path fill="#A8D5CE" fill-opacity="0.25" d="M-162,242 C-118,128 -18,58 118,38 C235,20 355,62 432,152 C498,232 512,342 488,445 C465,538 402,612 308,648 C218,682 108,668 22,612 C-62,558 -118,468 -148,375 C-175,288 -195,335 -162,242 Z"/>
+  </svg>
+  <div class="project-hero-inner">
+    <a class="back-link" href="../index.html#projects">← Selected work</a>
+    <span class="tag eng">Engineering</span>
+    <h1>Equator 2</h1>
+  </div>
+</header>
+
+<main class="project-body">
+  <p class="lead">Flagship software synthesiser for the ROLI Seaboard — deep polyphonic expression with a multi-timbral architecture, built in C++/JUCE.</p>
+
+  <h2>Overview</h2>
+  <p>Equator 2 is the second-generation sound engine designed around MPE (MIDI Polyphonic Expression), letting every note respond independently to pressure, glide, and slide. It pairs a flexible modulation matrix with a multi-timbral voice architecture so a single instrument can hold several distinct sounds at once.</p>
+
+  <h2>What I worked on</h2>
+  <p>Core DSP and voice management in C++/JUCE, the modulation system, and the performance-critical paths that keep latency low under heavy polyphony. The result is an instrument built from the ground up for expressive, real-time playing.</p>
+
+  <h2>Details</h2>
+  <ul class="project-meta">
+    <li>C++ / JUCE</li>
+    <li>MPE</li>
+    <li>Real-time DSP</li>
+    <li>Multi-timbral</li>
+  </ul>
+
+  <div class="project-links">
+    <a class="pill solid" href="https://roli.com" target="_blank" rel="noopener">roli.com ↗</a>
+    <a class="pill" href="../index.html#projects">Back to work</a>
+  </div>
+</main>
+
+<nav class="project-pager">
+  <span class="spacer"></span>
+  <a href="airwave-player.html">Next: Airwave Player →</a>
+</nav>
+
+<footer>
+  <span>© 2026 Lo Clerc</span>
+  <a href="../index.html">offalwaffle.dev</a>
+</footer>
+
+</body>
+</html>
