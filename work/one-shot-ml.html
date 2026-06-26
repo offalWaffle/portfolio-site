@@ -28,18 +28,24 @@
   <div class="project-hero-inner">
     <a class="back-link" href="../index.html#projects">← Selected work</a>
     <span class="tag both">Audio ML</span>
-    <h1>Patch Matcher</h1>
+    <h1>ML: One-Shot Instrument Generation</h1>
   </div>
 </header>
 
 <main class="project-body">
-  <p class="lead">A Synplant-style genetic algorithm applied to physical-modelling synthesis — perceptual loss, CMA-ES evolutionary search, and a differentiable polish stage.</p>
+  <p class="lead">ML project: generating a full 88-key playable instrument from a single recorded note — by translating pitch in a neural codec's latent space.</p>
+
+  <figure class="project-figure">
+    <img src="images/patch-matcher.jpg" alt="Patch Matcher"
+         onerror="this.closest('.project-figure').style.display='none'">
+    <figcaption>ML One Shot Generation</figcaption>
+  </figure>
 
   <h2>Overview</h2>
-  <p>Given a target sound, Patch Matcher searches a physical-modelling synth's parameter space to reproduce it. An evolutionary search explores broadly, guided by a perceptual loss that compares sounds the way a listener would rather than sample-by-sample.</p>
+  <p>Turning a single piano note into a full, playable 88-key instrument that holds its timbre across the entire range. It's basically pitch shifter that follows the harmonic characteristics of the one-shot recordings of piano multi samples the model was trained against. The approach i chose was to freeze a pretrained neural audio codec (Descript's DAC) and train a small (~27M-parameter) adapter that translates a source latent to a target pitch under direct supervision. It trains end-to-end in under an hour on a single GPU and reaches a 0.323 validation loss.</p>
 
   <h2>Approach</h2>
-  <p>CMA-ES drives the global search toward promising regions of the parameter space, then a differentiable polish stage refines the best candidates by gradient descent. The combination balances broad exploration with precise convergence.</p>
+  <p>I abandoned two harder architectures first — a VQ-VAE that baked pitch into the latent it was meant to transform, and an adversarial disentanglement scheme where the classifier kept beating the encoder — before the key reframe: I didn't need a pitch-invariant representation, just a pitch-translated output, which turned an unwinnable adversarial game into a supervised regression. The two remaining bugs lived upstream of the model, not in it: a loss floor fixed with cleaner data, and a decay-tail "buzz" fixed by changing what the loss measured. The throughline — the biggest wins came from reframing the problem and fixing the data, not from a bigger model.</p>
 
   <h2>Details</h2>
   <ul class="project-meta">
@@ -55,15 +61,16 @@
 </main>
 
 <nav class="project-pager">
-  <a href="airwave-player.html">← Prev: Airwave Player</a>
+  <a href="roli-airwave.html">← Prev: Airwave Player</a>
   <span class="spacer"></span>
   <a href="mickey-mouse-operation.html">Next: Mickey Mouse Operation →</a>
 </nav>
 
 <footer>
-  <span>© 2026 Lo Clerc</span>
+  <span>© 2026 Laurent Clerc</span>
   <a href="../index.html">offalwaffle.dev</a>
 </footer>
 
+<script src="work.js"></script>
 </body>
 </html>

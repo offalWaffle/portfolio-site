@@ -35,11 +35,19 @@
 <main class="project-body">
   <p class="lead">Flagship software synthesiser for the ROLI Seaboard — deep polyphonic expression with a multi-timbral architecture, built in C++/JUCE.</p>
 
+  <figure class="project-figure">
+    <img src="images/equator-2.jpg" alt="Equator 2 interface"
+         onerror="this.closest('.project-figure').style.display='none'">
+    <figcaption>Equator 2</figcaption>
+  </figure>
+
   <h2>Overview</h2>
-  <p>Equator 2 is the second-generation sound engine designed around MPE (MIDI Polyphonic Expression), letting every note respond independently to pressure, glide, and slide. It pairs a flexible modulation matrix with a multi-timbral voice architecture so a single instrument can hold several distinct sounds at once.</p>
+  <p>A hybrid engine combining wavetable, sample, granular, and virtual-analog synthesis, built for expressive five-dimensional MPE control: Strike, Glide, Slide, Press, and Lift.</p>
 
   <h2>What I worked on</h2>
-  <p>Core DSP and voice management in C++/JUCE, the modulation system, and the performance-critical paths that keep latency low under heavy polyphony. The result is an instrument built from the ground up for expressive, real-time playing.</p>
+  <p>Over four years I've taken Equator 2 well beyond a conventional plugin. The same engine now powers two very different products: a real-time automotive sound engine that turns live vehicle telemetry (speed, steering, braking, CAN bus data) into synthesised sound for a major car brand's EV installation, and the sound core behind ROLI Airwave, the company's gesture-controlled instrument. Alongside that, I've driven the core synth forward — an expanded modulation system, OSC-based gesture and macro control, and ongoing DSP performance work (SIMD optimisation for granular synthesis component)</p>
+
+  <p>[img:1|The modulation matrix]</p>
 
   <h2>Details</h2>
   <ul class="project-meta">
@@ -57,13 +65,14 @@
 
 <nav class="project-pager">
   <span class="spacer"></span>
-  <a href="airwave-player.html">Next: Airwave Player →</a>
+  <a href="roli-airwave.html">Next: Airwave Player →</a>
 </nav>
 
 <footer>
-  <span>© 2026 Lo Clerc</span>
+  <span>© 2026 Laurent Clerc</span>
   <a href="../index.html">offalwaffle.dev</a>
 </footer>
 
+<script src="work.js"></script>
 </body>
 </html>

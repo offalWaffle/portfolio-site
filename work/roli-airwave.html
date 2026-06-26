@@ -28,25 +28,34 @@
   <div class="project-hero-inner">
     <a class="back-link" href="../index.html#projects">← Selected work</a>
     <span class="tag eng">Engineering</span>
-    <h1>Airwave Player</h1>
+    <h1>ROLI Airwave</h1>
   </div>
 </header>
 
 <main class="project-body">
-  <p class="lead">Cross-platform sound player for iOS and desktop — real-time audio streaming, MDM-managed kiosk deployments, and AUv3 plugin support.</p>
+  <p class="lead">The first synthesiser that turns hand gestures in the air into expressive sound.</p>
+
+  <figure class="project-figure">
+    <img src="images/roli-airwave.jpg" alt="ROLI Airwave"
+         onerror="this.closest('.project-figure').style.display='none'">
+    <figcaption>ROLI Airwave</figcaption>
+  </figure>
 
   <h2>Overview</h2>
-  <p>Airwave Player delivers audio across iOS and desktop from a shared codebase, built for reliable real-time streaming in environments where the device runs unattended as a managed kiosk.</p>
+  <p>ROLI Airwave is a hand-tracking musical instrument - the first synthesiser of its kind to let you shape sound from gestures in the air. An infrared stereo camera (via the Ultraleap/Leap Motion SDK) and computer vision model each hand as 27 joints in 3D space, translating gestures into expressive control over the sound engine. Our focus was on minimising the latency of turning those 3D hand frames into audio.
+    Architecturally, we split the application into a hand-tracking service that generates MIDI data and a synthesiser plugin that consumes it for sound generation, with ZeroMQ handling communication between the two. Built for Mac, Windows, and iOS. </p>
+
+  <p>[img:1]</p>
 
   <h2>What I worked on</h2>
-  <p>The audio streaming pipeline, AUv3 plugin support, and the deployment story around MDM-managed kiosks — making sure playback stays robust on locked-down, remotely-administered hardware.</p>
+  <p>On ROLI Airwave I translated hand gestures into MIDI CCs and MPE control — as well as iOS support, DSP optimisation, and third-party integrations with Yamaha products.</p>
 
   <h2>Details</h2>
   <ul class="project-meta">
     <li>iOS / Desktop</li>
-    <li>Real-time streaming</li>
-    <li>AUv3</li>
-    <li>MDM / Kiosk</li>
+    <li>JUCE</li>
+    <li>C++</li>
+    <li>Computer Vision</li>
   </ul>
 
   <div class="project-links">
@@ -57,13 +66,14 @@
 <nav class="project-pager">
   <a href="equator-2.html">← Prev: Equator 2</a>
   <span class="spacer"></span>
-  <a href="patch-matcher.html">Next: Patch Matcher →</a>
+  <a href="one-shot-ml.html">Next: Patch Matcher →</a>
 </nav>
 
 <footer>
-  <span>© 2026 Lo Clerc</span>
+  <span>© 2026 Laurent Clerc</span>
   <a href="../index.html">offalwaffle.dev</a>
 </footer>
 
+<script src="work.js"></script>
 </body>
 </html>
