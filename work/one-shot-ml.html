@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Patch Matcher — offalwaffle.dev</title>
+<title>One-Shot Instrument Generation — offalwaffle.dev</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -28,31 +28,41 @@
   <div class="project-hero-inner">
     <a class="back-link" href="../index.html#projects">← Selected work</a>
     <span class="tag both">Audio ML</span>
-    <h1>ML: One-Shot Instrument Generation</h1>
+    <h1>ML One-Shot Instrument Generation </h1>
   </div>
 </header>
 
 <main class="project-body">
-  <p class="lead">ML project: generating a full 88-key playable instrument from a single recorded note — by translating pitch in a neural codec's latent space.</p>
+  <p class="lead">Turning a single piano note into a full, playable 88-key instrument that holds its timbre across the entire range.</p>
 
   <figure class="project-figure">
-    <img src="images/patch-matcher.jpg" alt="Patch Matcher"
+    <img src="images/one-shot-ml.jpg" alt="One-Shot Instrument Generation"
          onerror="this.closest('.project-figure').style.display='none'">
-    <figcaption>ML One Shot Generation</figcaption>
+    <figcaption>One-shot Instrument Generation</figcaption>
   </figure>
 
   <h2>Overview</h2>
-  <p>Turning a single piano note into a full, playable 88-key instrument that holds its timbre across the entire range. It's basically pitch shifter that follows the harmonic characteristics of the one-shot recordings of piano multi samples the model was trained against. The approach i chose was to freeze a pretrained neural audio codec (Descript's DAC) and train a small (~27M-parameter) adapter that translates a source latent to a target pitch under direct supervision. It trains end-to-end in under an hour on a single GPU and reaches a 0.323 validation loss.</p>
+  <p>The trained model works like a pitch-shifter tuned to a specific musical instrument and how it changes over its full range (in this case the piano). Since real instruments have inharmonic elements and are register-dependent - a naïvely shifted low C sounds nothing like the real high C of the same piano. I solved this by freezing a pre-trained neural audio codec (Descript's DAC) and training a small (~27M-parameter) adapter that translates a source latent to a target pitch under direct supervision. It trains end-to-end in under an hour on a single GPU and reaches a 0.323 validation loss.</p>
 
-  <h2>Approach</h2>
-  <p>I abandoned two harder architectures first — a VQ-VAE that baked pitch into the latent it was meant to transform, and an adversarial disentanglement scheme where the classifier kept beating the encoder — before the key reframe: I didn't need a pitch-invariant representation, just a pitch-translated output, which turned an unwinnable adversarial game into a supervised regression. The two remaining bugs lived upstream of the model, not in it: a loss floor fixed with cleaner data, and a decay-tail "buzz" fixed by changing what the loss measured. The throughline — the biggest wins came from reframing the problem and fixing the data, not from a bigger model.</p>
+  <h2>Challenges & lessons learnt</h2>
+  <p>I first tried two harder architectures and abandoned both:
+    A VQ-VAE plus latent transformer, which failed because the encoder had no incentive to separate pitch from timbre - it baked pitch into the very latent the downstream model was meant to transform, and plateaued without ever producing clean transfer.
+    An adversarial disentanglement scheme using a gradient-reversal layer to force a pitch-free latent. Elegant on paper, but the pitch classifier kept beating the encoder across every weighting I tried - disentangling a high-dimensional continuous latent with a small network turned out to be genuinely hard, not a tuning detail.
+    The breakthrough was a reframe: I didn't need a pitch-invariant representation, I needed a pitch-translated output - a supervised regression instead of an adversarial game. From there, the two remaining bugs both turned out to live upstream of the model: a stubborn validation-loss floor caused by training pairs that varied in more than pitch (fixed by switching to deterministic VST-rendered data where only pitch changes), and a tonal "buzz" in note decay tails caused by a flat L1 loss under-weighting low-energy frames (fixed with a per-frame cosine-direction plus log-magnitude loss). The recurring lesson is that the biggest wins came from reframing the problem and fixing the data and objective, not from a bigger model.</p>
+
+  <h2>Next Steps</h2>
+  <p>This is an on-going project and there is still room for improvement in terms of the audio quality - in particular the lower registers of the piano require further tuning. The next big step will be to generalise this approach to other instrument types, allowing any recorded one-shot sample to be used to generate a full multi-sample one-shot instrument.</p>
+
+  <h2>Project on github</h2>
+  <p><a href="https://github.com/offalWaffle/Multi-Salmon-Training">https://github.com/offalWaffle/Multi-Salmon-Training</a></p>
+
 
   <h2>Details</h2>
   <ul class="project-meta">
-    <li>Physical modelling</li>
-    <li>CMA-ES</li>
-    <li>Perceptual loss</li>
-    <li>Differentiable DSP</li>
+    <li>Descript DAC</li>
+    <li>Latent adapter</li>
+    <li>Supervised regression</li>
+    <li>VST-rendered dataset</li>
   </ul>
 
   <div class="project-links">
@@ -61,9 +71,8 @@
 </main>
 
 <nav class="project-pager">
-  <a href="roli-airwave.html">← Prev: Airwave Player</a>
+  <a href="real-time-audio-engine.html">← Prev: Real-time Audio Engine</a>
   <span class="spacer"></span>
-  <a href="mickey-mouse-operation.html">Next: Mickey Mouse Operation →</a>
 </nav>
 
 <footer>
