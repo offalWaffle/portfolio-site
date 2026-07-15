@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Private Repos — offalwaffle.dev</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink:    #F2C5B8;
+    --khaki:   #B5A96A;
+    --sky:     #5BAFD6;
+    --mint:    #A8D5CE;
+    --black:   #111111;
+    --off:     #F6F4F0;
+    --text:    #1a1a1a;
+    --muted:   #666;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    background: var(--off);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    mix-blend-mode: multiply;
+  }
+
+  nav .logo {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    text-decoration: none;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  nav ul a {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--black);
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  nav ul a:hover { opacity: 1; }
+
+  /* ── HERO ── */
+  .repo-hero {
+    position: relative;
+    min-height: 55vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: var(--black);
+    padding: 8rem 5vw 4rem;
+  }
+
+  .repo-hero .blob-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .repo-hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 2rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: #fff; }
+
+  .repo-hero .eyebrow {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 1.2rem;
+  }
+
+  .repo-hero h1 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: clamp(2.4rem, 6vw, 5rem);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 1.4rem;
+  }
+
+  .repo-hero p.intro {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.72);
+    max-width: 520px;
+    font-weight: 300;
+  }
+
+  /* ── REPO GRID ── */
+  .repos {
+    padding: 6rem 5vw 3rem;
+  }
+
+  .section-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 3rem;
+    background: currentColor;
+    opacity: 0.4;
+  }
+
+  .repos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5px;
+    background: #ccc;
+    border: 1.5px solid #ccc;
+  }
+
+  .repo-card {
+    background: var(--off);
+    padding: 2.2rem 2rem;
+    transition: background 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .repo-card:hover { background: #fff; }
+
+  .repo-card .tag {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    align-self: flex-start;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+  }
+
+  .tag.private { background: var(--khaki); color: #2e2a12; }
+  .tag.eng     { background: var(--sky);   color: #0a2e40; }
+  .tag.both    { background: var(--mint);  color: #1a3a36; }
+  .tag.music   { background: var(--pink);  color: #5a2a1a; }
+
+  .repo-card h3 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1.25rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    color: var(--black);
+  }
+
+  .repo-card h3 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .repo-card h3 a:hover { color: var(--sky); }
+
+  .repo-card p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .repo-card .meta {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .repo-card .meta li {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+    padding: 0.3rem 0.7rem;
+    border: 1px solid #d8d4cc;
+    border-radius: 100px;
+  }
+
+  .repo-card .repo-link {
+    margin-top: auto;
+    align-self: flex-start;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--sky);
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+  }
+
+  /* ── NOTE STRIP ── */
+  .note {
+    padding: 0 5vw 6rem;
+    max-width: 760px;
+  }
+
+  .note p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .note a { color: var(--sky); text-decoration: none; }
+  .note a:hover { text-decoration: underline; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    padding: 2rem 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  footer span, footer a {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+  }
+
+  footer a:hover { color: rgba(255,255,255,0.6); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    nav { padding: 1.2rem 1.5rem; }
+    nav ul { gap: 1.5rem; }
+    .repo-hero { padding: 7rem 1.5rem 3rem; }
+    .repos { padding: 4rem 1.5rem 2rem; }
+    .note { padding: 0 1.5rem 4rem; }
+    footer { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="../index.html">offalwaffle.dev</a>
+  <ul>
+    <li><a href="../index.html#projects">Work</a></li>
+    <li><a href="../index.html#music">Music</a></li>
+    <li><a href="../index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="repo-hero">
+  <svg class="blob-svg" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#B5A96A" fill-opacity="0.4" d="M978,-148 C1038,-228 1165,-262 1298,-235 C1412,-212 1502,-142 1538,-42 C1568,48 1558,158 1568,258 C1578,355 1608,455 1568,535 C1528,612 1428,648 1308,638 C1195,628 1082,572 998,492 C915,415 878,312 868,208 C858,112 878,28 938,-42 C958,-72 955,-88 978,-148 Z"/>
+    <path fill="#5BAFD6" fill-opacity="0.28" d="M-162,242 C-118,128 -18,58 118,38 C235,20 355,62 432,152 C498,232 512,342 488,445 C465,538 402,612 308,648 C218,682 108,668 22,612 C-62,558 -118,468 -148,375 C-175,288 -195,335 -162,242 Z"/>
+  </svg>
+  <div class="repo-hero-inner">
+    <a class="back-link" href="../index.html#projects">← offalwaffle.dev</a>
+    <p class="eyebrow">Private repositories</p>
+    <h1>Private Repos</h1>
+    <p class="intro">
+      A curated set of private GitHub repositories, shared as read-only preview links via
+      privategithub.link. No GitHub account required — just open a link to browse the code.
+    </p>
+  </div>
+</header>
+
+<!-- REPO LIST -->
+<section class="repos">
+  <p class="section-label">Shared repositories</p>
+
+  <div class="repos-grid">
+
+    <!-- ─────────────────────────────────────────────────────────────
+         HOW TO ADD A REPO:
+         1. Create a share link at https://privategithub.link for the repo.
+         2. Copy one <div class="repo-card"> block below.
+         3. Replace the href, title, description, and meta tags.
+         Tag options: private · eng · both · music
+         ───────────────────────────────────────────────────────────── -->
+
+    <div class="repo-card">
+      <span class="tag private">🔒 Private</span>
+      <h3><a href="https://share-github.com/offalWaffle/Multi-Salmon-Training?access_token=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" target="_blank" rel="noopener">AI Multi Sampler Training</a></h3>
+      <p>One-Shot Instrument Generation via DAC Pitch Translation</p>
+      <ul class="meta">
+        <li>Python</li>
+        <li>ML</li>
+        <li>DSP</li>
+      </ul>
+      <a href="https://share-github.com/offalWaffle/Multi-Salmon-Training?access_token=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" target="_blank" rel="noopener" class="repo-link">Open repo →</a>
+    </div>
+
+    <div class="repo-card">
+      <span class="tag eng">🔒 Private</span>
+      <h3><a href="https://share-github.com/offalWaffle/Drifty/blob/main/README.md?access_token=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" target="_blank" rel="noopener">Drifty plugin</a></h3>
+      <p>A lo-fi character plugin for tape, vinyl, VHS and cassette colouration, with wow/flutter, drive, noise, EQ, compression and filtering.</p>
+      <ul class="meta">
+        <li>DSP</li>
+        <li>JUCE</li>
+        <li>C++</li>
+      </ul>
+      <a href="https://share-github.com/offalWaffle/Drifty/blob/main/README.md?access_token=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" target="_blank" rel="noopener" class="repo-link">Open repo →</a>
+    </div>
+
+    <div class="repo-card">
+      <span class="tag both">🔒 Private</span>
+      <h3><a href="https://github.com/offalWaffle/teensy-audio-lib-extras" target="_blank" rel="noopener">Teensy Audio Library Extras</a></h3>
+      <p>A small suite of useful audio modules designed to work with and extend the Teensy audio library for Teensy ARM based microcontrollers.</p>
+      <ul class="meta">
+        <li>C++</li>
+        <li>Teensy</li>
+      </ul>
+      <a href="https://github.com/offalWaffle/teensy-audio-lib-extras" target="_blank" rel="noopener" class="repo-link">Open repo →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- NOTE -->
+<div class="note">
+  <p>
+    These links are generated with <a href="https://privategithub.link" target="_blank" rel="noopener">privategithub.link</a>,
+    which creates temporary, read-only web views of private repositories. Access may be revoked at any time.
+    For anything else, get in <a href="../index.html#contact">touch</a>.
+  </p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Laurent Clerc</span>
+  <a href="../index.html">offalwaffle.dev</a>
+</footer>
+
+</body>
+</html>
